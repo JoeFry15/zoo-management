@@ -1,5 +1,8 @@
 using zoo_mgmt.Models;
 using zoo_mgmt;
+using zoo_mgmt.Repositories;
+using zoo_mgmt.Data;
+
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
@@ -16,6 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddTransient<IAnimalsRepo, AnimalsRepo>();
 
 builder.Services.AddDbContext<ZooManagementDbContext>(options =>
             {
@@ -63,11 +68,11 @@ static void CreateDbIfNotExists(IHost host)
     var context = services.GetRequiredService<ZooManagementDbContext>();
     context.Database.EnsureCreated();
 
-    // if (!context.Users.Any())
-    // {
-    // var users = SampleUsers.GetUsers();
-    // context.Users.AddRange(users);
-    // context.SaveChanges();
-    // }
+    if (!context.Animals.Any())
+    {
+        var animals = SampleAnimals.GetAnimals();
+        context.Animals.AddRange(animals);
+        context.SaveChanges();
+    }
 }
 
