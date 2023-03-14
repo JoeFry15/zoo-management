@@ -1,5 +1,6 @@
 using zoo_mgmt.Models.Request;
 using zoo_mgmt.Models.Database;
+using System;
 
 namespace zoo_mgmt.Repositories
 {
@@ -95,6 +96,28 @@ namespace zoo_mgmt.Repositories
 
         public Animal Add(AddAnimalRequest newAnimal)
         {
+            var getEnclosureCount = _context.Animals.Where(e => e.Enclosure == newAnimal.Enclosure).Count();
+            
+            Dictionary<string, int> Enclosures = new Dictionary<string, int>{
+                 {"Lion Enclosure", 10},
+                 {"Aviary", 50},
+                 {"Reptile House", 40}, 
+                 {"Giraffe Enclosure", 6}, 
+                 {"Hippo Enclosure", 10},
+            };
+
+            if(!Enclosures.ContainsKey(newAnimal.Enclosure))
+            {
+                throw new Exception("This Enclosure does not exist!!");
+            }
+
+
+            if(getEnclosureCount >= Enclosures[newAnimal.Enclosure])
+            {
+                throw new Exception("Too many animals in Enclosure!!");
+            }
+
+
             var insertResponse = _context.Animals.Add(new Animal
             {
                 Name = newAnimal.Name,
@@ -103,6 +126,7 @@ namespace zoo_mgmt.Repositories
                 Sex = newAnimal.Sex,
                 BirthDate = newAnimal.BirthDate,
                 AcquiredDate = newAnimal.AcquiredDate,
+                Enclosure = newAnimal.Enclosure,
             });
             _context.SaveChanges();
 

@@ -15,5 +15,7 @@ namespace zoo_mgmt.Models.Request
 
         public DateTime AcquiredDate { get; set; }
 
+        public string Enclosure {get; set;}
+
     }
 }

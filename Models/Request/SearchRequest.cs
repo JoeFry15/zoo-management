@@ -7,6 +7,18 @@ namespace zoo_mgmt.Models.Request
         public string OrderBy { get; set; }
     }
     
+
+
+    public class AnimalSearchRequest : SearchRequest
+    {
+        public string? Name { get; set; }
+        public string? Species { get; set; }
+        public string? Classification { get; set; }
+        public int? Age { get; set; }
+        public DateTime? AcquiredDate { get; set; }
+    }
+}
+
     // public class UserSearchRequest : SearchRequest
     // {
     //     private string _search;
@@ -19,16 +31,6 @@ namespace zoo_mgmt.Models.Request
 
     //     public override string Filters => Search == null ? "" : $"&search={Search}";
     // }
-
-    public class AnimalSearchRequest : SearchRequest
-    {
-        public string? Name { get; set; }
-        public string? Species { get; set; }
-        public string? Classification { get; set; }
-        public int? Age { get; set; }
-        public DateTime? AcquiredDate { get; set; }
-    }
-}
 
 //     public class FeedSearchRequest : PostSearchRequest
 //     {

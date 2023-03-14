@@ -14,4 +14,6 @@ public class Animal
 
     public DateTime AcquiredDate { get; set; }
 
+    public string Enclosure {get; set;}
+
 }
