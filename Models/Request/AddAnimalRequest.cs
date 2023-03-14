@@ -11,9 +11,9 @@ namespace zoo_mgmt.Models.Request
 
         public string Sex { get; set; }
 
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        public string AcquiredDate { get; set; }
+        public DateTime AcquiredDate { get; set; }
 
     }
 }

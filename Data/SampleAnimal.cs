@@ -49,8 +49,8 @@ namespace zoo_mgmt.Data
                 Species = Data[index][1],
                 Classification = Data[index][2],
                 Sex = Data[index][3],
-                BirthDate = Data[index][4],
-                AcquiredDate = Data[index][5],
+                BirthDate = DateTime.Parse(Data[index][4]),
+                AcquiredDate = DateTime.Parse(Data[index][5]),
             };
         }
     }

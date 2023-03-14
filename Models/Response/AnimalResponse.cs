@@ -15,8 +15,8 @@ namespace zoo_mgmt.Models.Response
         public string Species => _animal.Species;
         public string Classification => _animal.Classification;
         public string Sex => _animal.Sex;
-        public string BirthDate => _animal.BirthDate;
-        public string AcquiredDate => _animal.AcquiredDate;
+        public DateTime BirthDate => _animal.BirthDate;
+        public DateTime AcquiredDate => _animal.AcquiredDate;
 
     }
 }

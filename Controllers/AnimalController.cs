@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using zoo_mgmt.Models.Request;
 using zoo_mgmt.Models.Response;
 using zoo_mgmt.Repositories;
+using zoo_mgmt.Models.Database;
 //using MyFace.Repositories;
 
 namespace zoo_mgmt.Controllers
@@ -24,12 +25,28 @@ namespace zoo_mgmt.Controllers
             return new AnimalResponse(animal);
         }
 
-        // [HttpGet("types")]
-        // public ActionResult<List<string>> ListTypes()
+        // [HttpGet("search/{searchQuery}/{pageSize}/{pageNumber}")]
+        // public ActionResult<List<Animal>> Search([FromRoute] string searchQuery, int pageSize, int pageNumber)
         // {
-        //     var animal = _animals;
-        //     return new List<string> animal;
+        //     var animal = _animals.GetByPageInfo(searchQuery,pageSize, pageNumber);
+        //     return animal;
         // }
+
+        
+        [HttpGet("search")]
+        public ActionResult<List<Animal>> Search([FromQuery] AnimalSearchRequest search)
+        {
+            var animal = _animals.GetByPageInfo(search);
+            return animal;
+        }
+
+
+        [HttpGet("species")]
+        public ActionResult<List<string>> ListSpecies()
+        {
+            var animal = _animals.GetListOfSpecies();
+            return animal;
+        }
 
         [HttpPost("add")]
         public IActionResult Add([FromBody] AddAnimalRequest newAnimal)

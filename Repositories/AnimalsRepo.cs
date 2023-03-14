@@ -8,6 +8,9 @@ namespace zoo_mgmt.Repositories
         // IEnumerable<User> Search(UserSearchRequest search);
         // int Count(UserSearchRequest search);
         Animal GetById(int id);
+
+        List<Animal> GetByPageInfo(AnimalSearchRequest search);
+        List<string> GetListOfSpecies();
         Animal Add(AddAnimalRequest newAnimal);
         // User Update(int id, UpdateUserRequest update);
         // void Delete(int id);
@@ -21,7 +24,92 @@ namespace zoo_mgmt.Repositories
         {
             _context = context;
         }
+        
+        public List<Animal> GetByPageInfo(AnimalSearchRequest search)
+        {
+            int firstResult = 1 + (search.PageSize * (search.Page-1));
 
+            IEnumerable<Animal> animalData = _context.Animals;
+            
+            if (search.Name != null) 
+            {
+                animalData = animalData
+                .Where(i => i.Name == search.Name);
+            }
+
+            if (search.Species != null) 
+            {
+                animalData = animalData
+                .Where(i => i.Species == search.Species);
+            }
+
+            if (search.Classification != null) 
+            {
+                animalData = animalData
+                .Where(i => i.Classification == search.Classification);
+            }
+            
+            if (search.AcquiredDate != null) 
+            {
+                animalData = animalData
+                .Where(i => i.AcquiredDate == search.AcquiredDate);
+            }
+
+            if (search.Age != null) 
+            {
+                DateTime currentDate = DateTime.Now;
+                DateTime requiredDate = currentDate.AddYears(-(search.Age.Value));
+
+                animalData = animalData
+                .Where(i => i.BirthDate.Year == requiredDate.Year);
+            }
+
+            var animalDataPage = search.OrderBy != null ? animalData
+                .Skip(firstResult-1).Take(search.PageSize)
+                .OrderBy(o => o.GetType().GetProperty(search.OrderBy).GetValue(o))
+                .ToList()
+                :
+                animalData
+                .Skip(firstResult-1).Take(search.PageSize)
+                .OrderBy(o => o.Species)
+                .ToList();
+
+            return animalDataPage;
+        } 
+
+        public Animal GetById(int id)
+        {
+            return _context.Animals
+                .Single(animal => animal.Id == id);
+
+                
+        }
+
+        public List<string> GetListOfSpecies()
+        {
+            var animalTypes = _context.Animals.GroupBy(m => m.Species)
+            .Select(x => x.First().Species).ToList();
+
+            return animalTypes;
+        }
+
+        public Animal Add(AddAnimalRequest newAnimal)
+        {
+            var insertResponse = _context.Animals.Add(new Animal
+            {
+                Name = newAnimal.Name,
+                Species = newAnimal.Species,
+                Classification = newAnimal.Classification,
+                Sex = newAnimal.Sex,
+                BirthDate = newAnimal.BirthDate,
+                AcquiredDate = newAnimal.AcquiredDate,
+            });
+            _context.SaveChanges();
+
+            return insertResponse.Entity;
+        }
+
+        
         // public IEnumerable<User> Search(UserSearchRequest search)
         // {
         //     return _context.Users
@@ -48,28 +136,6 @@ namespace zoo_mgmt.Repositories
         //                         p.Username.ToLower().Contains(search.Search)
         //                     ));
         // }
-
-        public Animal GetById(int id)
-        {
-            return _context.Animals
-                .Single(animal => animal.Id == id);
-        }
-
-        public Animal Add(AddAnimalRequest newAnimal)
-        {
-            var insertResponse = _context.Animals.Add(new Animal
-            {
-                Name = newAnimal.Name,
-                Species = newAnimal.Species,
-                Classification = newAnimal.Classification,
-                Sex = newAnimal.Sex,
-                BirthDate = newAnimal.BirthDate,
-                AcquiredDate = newAnimal.AcquiredDate,
-            });
-            _context.SaveChanges();
-
-            return insertResponse.Entity;
-        }
 
         // public User Update(int id, UpdateUserRequest update)
         // {
