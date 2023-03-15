@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using zoo_mgmt.Models.Database;
-using System;
-using zoo_mgmt.Repositories;
 
 namespace zoo_mgmt.Data
 {

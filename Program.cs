@@ -84,5 +84,12 @@ static void CreateDbIfNotExists(IHost host)
         context.Animals.AddRange(animals);
         context.SaveChanges();
     }
+
+    if (!context.ZooKeepers.Any())
+    {
+        var zooKeepers = SampleZooKeeper.GetZooKeepers();
+        context.ZooKeepers.AddRange(zooKeepers);
+        context.SaveChanges();
+    }
 }
 

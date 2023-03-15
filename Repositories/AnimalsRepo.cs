@@ -68,6 +68,12 @@ namespace zoo_mgmt.Repositories
                 .Where(i => i.BirthDate.Year == requiredDate.Year);
             }
 
+            if (search.Enclosure != null)
+            {
+                animalData = animalData
+                .Where(i => i.Enclosure == search.Enclosure);
+            }
+
             var animalDataPage = search.OrderBy != null ? animalData
                 .Skip(firstResult - 1).Take(search.PageSize)
                 .OrderBy(o => o.GetType().GetProperty(search.OrderBy).GetValue(o))
@@ -76,6 +82,7 @@ namespace zoo_mgmt.Repositories
                 animalData
                 .Skip(firstResult - 1).Take(search.PageSize)
                 .OrderBy(o => o.Species)
+                .OrderBy(o => o.Enclosure)
                 .ToList();
 
             Logger.Info("Animal search page generated.");
@@ -87,8 +94,6 @@ namespace zoo_mgmt.Repositories
         {
             return _context.Animals
                 .Single(animal => animal.Id == id);
-
-
         }
 
         public List<string> GetListOfSpecies()

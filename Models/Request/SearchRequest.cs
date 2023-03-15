@@ -6,7 +6,7 @@ namespace zoo_mgmt.Models.Request
         public int PageSize { get; set; } = 10;
         public string OrderBy { get; set; }
     }
-    
+
 
 
     public class AnimalSearchRequest : SearchRequest
@@ -16,21 +16,22 @@ namespace zoo_mgmt.Models.Request
         public string? Classification { get; set; }
         public int? Age { get; set; }
         public DateTime? AcquiredDate { get; set; }
+        public string? Enclosure { get; set; }
     }
 }
 
-    // public class UserSearchRequest : SearchRequest
-    // {
-    //     private string _search;
-        
-    //     public string Search
-    //     {
-    //         get => _search?.ToLower();
-    //         set => _search = value;
-    //     }
+// public class UserSearchRequest : SearchRequest
+// {
+//     private string _search;
 
-    //     public override string Filters => Search == null ? "" : $"&search={Search}";
-    // }
+//     public string Search
+//     {
+//         get => _search?.ToLower();
+//         set => _search = value;
+//     }
+
+//     public override string Filters => Search == null ? "" : $"&search={Search}";
+// }
 
 //     public class FeedSearchRequest : PostSearchRequest
 //     {
@@ -46,17 +47,17 @@ namespace zoo_mgmt.Models.Request
 //                 {
 //                     filters += $"&postedBy={PostedBy}";
 //                 }
-                
+
 //                 if (LikedBy != null)
 //                 {
 //                     filters += $"&likedBy={LikedBy}";
 //                 }
-                
+
 //                 if (DislikedBy != null)
 //                 {
 //                     filters += $"&dislikedBy={DislikedBy}";
 //                 }
-                
+
 //                 return filters;
 //             }
 //         }
