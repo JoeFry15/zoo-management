@@ -31,6 +31,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddTransient<IAnimalsRepo, AnimalsRepo>();
+builder.Services.AddTransient<IZooKeepersRepo, ZooKeepersRepo>();
 
 builder.Services.AddDbContext<ZooManagementDbContext>(options =>
             {

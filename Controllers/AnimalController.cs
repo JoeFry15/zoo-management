@@ -3,7 +3,6 @@ using zoo_mgmt.Models.Request;
 using zoo_mgmt.Models.Response;
 using zoo_mgmt.Repositories;
 using zoo_mgmt.Models.Database;
-//using MyFace.Repositories;
 
 namespace zoo_mgmt.Controllers
 {

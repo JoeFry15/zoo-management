@@ -18,6 +18,11 @@ namespace zoo_mgmt.Models.Request
         public DateTime? AcquiredDate { get; set; }
         public string? Enclosure { get; set; }
     }
+
+    public class ZooKeeperSearchRequest : SearchRequest
+    {
+        public string? Name { get; set; }
+    }
 }
 
 // public class UserSearchRequest : SearchRequest
