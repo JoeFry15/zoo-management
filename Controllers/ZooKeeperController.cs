@@ -32,30 +32,25 @@ namespace zoo_mgmt.Controllers
             return zooKeeper;
         }
 
+        [HttpPost("add")]
+        public IActionResult Add([FromBody] AddZooKeeperRequest newZooKeeper)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        // [HttpGet("species")]
-        // public ActionResult<List<string>> ListSpecies()
-        // {
-        //     var animal = _animals.GetListOfSpecies();
-        //     return animal;
-        // }
-
-        // [HttpPost("add")]
-        // public IActionResult Add([FromBody] AddAnimalRequest newAnimal)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-
-        //     try{
-        //         var animal = _animals.Add(newAnimal);
-        //         var url = Url.Action("GetById", new { id = animal.Id });
-        //         var responseViewModel = new AnimalResponse(animal);
-        //         return Created(url, responseViewModel);
-        //     }catch (Exception e){
-        //         return BadRequest(e.Message);
-        //     }  
-        // }
+            try
+            {
+                var zooKeeper = _zooKeeper.Add(newZooKeeper);
+                var url = Url.Action("GetById", new { id = zooKeeper.Id });
+                var responseViewModel = new ZooKeeperResponse(zooKeeper);
+                return Created(url, responseViewModel);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

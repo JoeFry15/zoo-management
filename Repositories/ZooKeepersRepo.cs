@@ -10,8 +10,7 @@ namespace zoo_mgmt.Repositories
         ZooKeeper GetById(int id);
 
         List<ZooKeeper> GetByPageInfo(ZooKeeperSearchRequest search);
-        // List<string> GetListOfSpecies();
-        // Animal Add(AddAnimalRequest newAnimal);
+        ZooKeeper Add(AddZooKeeperRequest newZooKeeper);
     }
 
     public class ZooKeepersRepo : IZooKeepersRepo
@@ -57,53 +56,39 @@ namespace zoo_mgmt.Repositories
                 .Single(zooKeeper => zooKeeper.Id == id);
         }
 
-        // public List<string> GetListOfSpecies()
-        // {
-        //     var animalTypes = _context.Animals.GroupBy(m => m.Species)
-        //     .Select(x => x.First().Species).ToList();
+        public ZooKeeper Add(AddZooKeeperRequest newZooKeeper)
+        {
+            // var getEnclosureCount = _context.Animals.Where(e => e.Enclosure == newAnimal.Enclosure).Count();
 
-        //     return animalTypes;
-        // }
+            // Dictionary<string, int> Enclosures = new Dictionary<string, int>{
+            //      {"Lion Enclosure", 10},
+            //      {"Aviary", 50},
+            //      {"Reptile House", 40},
+            //      {"Giraffe Enclosure", 6},
+            //      {"Hippo Enclosure", 10},
+            // };
 
-        // public Animal Add(AddAnimalRequest newAnimal)
-        // {
-        //     var getEnclosureCount = _context.Animals.Where(e => e.Enclosure == newAnimal.Enclosure).Count();
-
-        //     Dictionary<string, int> Enclosures = new Dictionary<string, int>{
-        //          {"Lion Enclosure", 10},
-        //          {"Aviary", 50},
-        //          {"Reptile House", 40},
-        //          {"Giraffe Enclosure", 6},
-        //          {"Hippo Enclosure", 10},
-        //     };
-
-        //     if (!Enclosures.ContainsKey(newAnimal.Enclosure))
-        //     {
-        //         Logger.Warn("User attempted to add an animal with an enclosure that does not exist.");
-        //         throw new Exception("This Enclosure does not exist!!");
-        //     }
+            // if (!Enclosures.ContainsKey(newAnimal.Enclosure))
+            // {
+            //     Logger.Warn("User attempted to add an animal with an enclosure that does not exist.");
+            //     throw new Exception("This Enclosure does not exist!!");
+            // }
 
 
-        //     if (getEnclosureCount >= Enclosures[newAnimal.Enclosure])
-        //     {
-        //         Logger.Warn("User attempted to add an animal to a full enclosure.");
-        //         throw new Exception("Too many animals in Enclosure!!");
-        //     }
+            // if (getEnclosureCount >= Enclosures[newAnimal.Enclosure])
+            // {
+            //     Logger.Warn("User attempted to add an animal to a full enclosure.");
+            //     throw new Exception("Too many animals in Enclosure!!");
+            // }
 
 
-        //     var insertResponse = _context.Animals.Add(new Animal
-        //     {
-        //         Name = newAnimal.Name,
-        //         Species = newAnimal.Species,
-        //         Classification = newAnimal.Classification,
-        //         Sex = newAnimal.Sex,
-        //         BirthDate = newAnimal.BirthDate,
-        //         AcquiredDate = newAnimal.AcquiredDate,
-        //         Enclosure = newAnimal.Enclosure,
-        //     });
-        //     _context.SaveChanges();
+            var insertResponse = _context.ZooKeepers.Add(new ZooKeeper
+            {
+                Name = newZooKeeper.Name,
+            });
+            _context.SaveChanges();
 
-        //     return insertResponse.Entity;
-        // }
+            return insertResponse.Entity;
+        }
     }
 }

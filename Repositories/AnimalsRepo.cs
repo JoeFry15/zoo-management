@@ -9,7 +9,7 @@ namespace zoo_mgmt.Repositories
     {
         Animal GetById(int id);
 
-        List<Animal> GetByPageInfo(AnimalSearchRequest search);
+        List<AnimalAndEnclosureResponse> GetByPageInfo(AnimalSearchRequest search);
         List<string> GetListOfSpecies();
         Animal Add(AddAnimalRequest newAnimal);
     }
@@ -24,11 +24,13 @@ namespace zoo_mgmt.Repositories
             _context = context;
         }
 
-        public List<Animal> GetByPageInfo(AnimalSearchRequest search)
+        public List<AnimalAndEnclosureResponse> GetByPageInfo(AnimalSearchRequest search)
         {
             int firstResult = 1 + (search.PageSize * (search.Page - 1));
 
             IEnumerable<Animal> animalData = _context.Animals;
+
+            IEnumerable<Enclosure> enclosureData = _context.Enclosures;
 
             if (search.Name != null)
             {
@@ -63,21 +65,49 @@ namespace zoo_mgmt.Repositories
                 .Where(i => i.BirthDate.Year == requiredDate.Year);
             }
 
-            if (search.Enclosure != null)
+            var query = animalData.GroupJoin(enclosureData,
+            animalData => animalData.Enclosure.EnclosureId,
+            enclosureData => enclosureData.EnclosureId,
+            (animalData, animalDataGroup) => new
             {
-                animalData = animalData
-                .Where(i => i.Enclosure == search.Enclosure);
+                Id = animalData.Id,
+                Name = animalData.Name,
+                Species = animalData.Species,
+                Classification = animalData.Classification,
+                Sex = animalData.Sex,
+                BirthDate = animalData.BirthDate,
+                AcquiredDate = animalData.AcquiredDate,
+                EnclosureId = animalData.Enclosure.EnclosureId,
+                EnclosureName = animalData.Enclosure.EnclosureName,
+            });
+
+            var animalList = new List<AnimalAndEnclosureResponse>();
+
+            foreach (var item in query)
+            {
+                animalList.Add(new AnimalAndEnclosureResponse()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Species = item.Species,
+                    Classification = item.Classification,
+                    Sex = item.Sex,
+                    BirthDate = item.BirthDate,
+                    AcquiredDate = item.AcquiredDate,
+                    EnclosureId = item.EnclosureId,
+                    EnclosureName = item.EnclosureName,
+                });
             }
 
-            var animalDataPage = search.OrderBy != null ? animalData
-                .Skip(firstResult - 1).Take(search.PageSize)
+            var animalDataPage = search.OrderBy != null ? animalList
                 .OrderBy(o => o.GetType().GetProperty(search.OrderBy).GetValue(o))
+                .Skip(firstResult - 1).Take(search.PageSize)
                 .ToList()
                 :
-                animalData
-                .Skip(firstResult - 1).Take(search.PageSize)
+                animalList
                 .OrderBy(o => o.Species)
-                .OrderBy(o => o.Enclosure)
+                .OrderBy(o => o.EnclosureId)
+                .Skip(firstResult - 1).Take(search.PageSize)
                 .ToList();
 
             Logger.Info("Animal search page generated.");
@@ -101,28 +131,28 @@ namespace zoo_mgmt.Repositories
 
         public Animal Add(AddAnimalRequest newAnimal)
         {
-            var getEnclosureCount = _context.Animals.Where(e => e.Enclosure == newAnimal.Enclosure).Count();
+            // var getEnclosureCount = _context.Animals.Where(e => e.Enclosure == newAnimal.Enclosure).Count();
 
-            Dictionary<string, int> Enclosures = new Dictionary<string, int>{
-                 {"Lion Enclosure", 10},
-                 {"Aviary", 50},
-                 {"Reptile House", 40},
-                 {"Giraffe Enclosure", 6},
-                 {"Hippo Enclosure", 10},
-            };
+            // Dictionary<string, int> Enclosures = new Dictionary<string, int>{
+            //      {"Lion Enclosure", 10},
+            //      {"Aviary", 50},
+            //      {"Reptile House", 40},
+            //      {"Giraffe Enclosure", 6},
+            //      {"Hippo Enclosure", 10},
+            // };
 
-            if (!Enclosures.ContainsKey(newAnimal.Enclosure))
-            {
-                Logger.Warn("User attempted to add an animal with an enclosure that does not exist.");
-                throw new Exception("This Enclosure does not exist!!");
-            }
+            // if (!Enclosures.ContainsKey(newAnimal.Enclosure))
+            // {
+            //     Logger.Warn("User attempted to add an animal with an enclosure that does not exist.");
+            //     throw new Exception("This Enclosure does not exist!!");
+            // }
 
 
-            if (getEnclosureCount >= Enclosures[newAnimal.Enclosure])
-            {
-                Logger.Warn("User attempted to add an animal to a full enclosure.");
-                throw new Exception("Too many animals in Enclosure!!");
-            }
+            // if (getEnclosureCount >= Enclosures[newAnimal.Enclosure])
+            // {
+            //     Logger.Warn("User attempted to add an animal to a full enclosure.");
+            //     throw new Exception("Too many animals in Enclosure!!");
+            // }
 
 
             var insertResponse = _context.Animals.Add(new Animal
@@ -133,7 +163,7 @@ namespace zoo_mgmt.Repositories
                 Sex = newAnimal.Sex,
                 BirthDate = newAnimal.BirthDate,
                 AcquiredDate = newAnimal.AcquiredDate,
-                Enclosure = newAnimal.Enclosure,
+                // Enclosure_id = newAnimal.Enclosure_id,
             });
             _context.SaveChanges();
 

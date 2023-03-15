@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace zoo_mgmt.Models.Database;
 
-public class Animal
+public class AnimalAndEnclosureResponse
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -15,5 +13,6 @@ public class Animal
     public DateTime BirthDate { get; set; }
 
     public DateTime AcquiredDate { get; set; }
-    public Enclosure Enclosure { get; set; }
+    public int EnclosureId { get; set; }
+    public string EnclosureName { get; set; }
 }

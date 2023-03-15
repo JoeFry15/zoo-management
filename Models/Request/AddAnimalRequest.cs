@@ -7,7 +7,7 @@ namespace zoo_mgmt.Models.Request
         public string Name { get; set; }
         public string Species { get; set; }
 
-        public string Classification{ get; set; }
+        public string Classification { get; set; }
 
         public string Sex { get; set; }
 
@@ -15,7 +15,7 @@ namespace zoo_mgmt.Models.Request
 
         public DateTime AcquiredDate { get; set; }
 
-        public string Enclosure {get; set;}
+        public int Enclosure_id { get; set; }
 
     }
 }

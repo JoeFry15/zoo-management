@@ -79,6 +79,13 @@ static void CreateDbIfNotExists(IHost host)
     var context = services.GetRequiredService<ZooManagementDbContext>();
     context.Database.EnsureCreated();
 
+    // if (!context.Enclosures.Any())
+    // {
+    //     var enclosures = SampleEnclosure.GetEnclosure();
+    //     context.Enclosures.AddRange(enclosures);
+    //     context.SaveChanges();
+    // }
+
     if (!context.Animals.Any())
     {
         var animals = SampleAnimals.GetAnimals();
@@ -92,5 +99,7 @@ static void CreateDbIfNotExists(IHost host)
         context.ZooKeepers.AddRange(zooKeepers);
         context.SaveChanges();
     }
+
+
 }
 

@@ -31,9 +31,9 @@ namespace zoo_mgmt.Controllers
         //     return animal;
         // }
 
-        
+
         [HttpGet("search")]
-        public ActionResult<List<Animal>> Search([FromQuery] AnimalSearchRequest search)
+        public ActionResult<List<AnimalAndEnclosureResponse>> Search([FromQuery] AnimalSearchRequest search)
         {
             var animal = _animals.GetByPageInfo(search);
             return animal;
@@ -55,14 +55,17 @@ namespace zoo_mgmt.Controllers
                 return BadRequest(ModelState);
             }
 
-            try{
+            try
+            {
                 var animal = _animals.Add(newAnimal);
                 var url = Url.Action("GetById", new { id = animal.Id });
                 var responseViewModel = new AnimalResponse(animal);
                 return Created(url, responseViewModel);
-            }catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
-            }  
+            }
 
         }
     }
