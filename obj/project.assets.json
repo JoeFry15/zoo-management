@@ -737,6 +737,19 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "NLog/5.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
         "type": "package",
         "dependencies": {
@@ -2694,6 +2707,30 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "NLog/5.1.2": {
+      "sha512": "JfQY93ure3IPVTN3eabBewBGvrcXcWIlaesFEXdy5UzIymfIT9yCgLISYtM0cOhjWziIaUr/6Z9NC2RwtjwrsQ==",
+      "type": "package",
+      "path": "nlog/5.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net35/NLog.dll",
+        "lib/net35/NLog.xml",
+        "lib/net45/NLog.dll",
+        "lib/net45/NLog.xml",
+        "lib/net46/NLog.dll",
+        "lib/net46/NLog.xml",
+        "lib/netstandard1.3/NLog.dll",
+        "lib/netstandard1.3/NLog.xml",
+        "lib/netstandard1.5/NLog.dll",
+        "lib/netstandard1.5/NLog.xml",
+        "lib/netstandard2.0/NLog.dll",
+        "lib/netstandard2.0/NLog.xml",
+        "nlog.5.1.2.nupkg.sha512",
+        "nlog.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
       "sha512": "EWI1olKDjFEBMJu0+3wuxwziIAdWDVMYLhuZ3Qs84rrz+DHwD00RzWPZCa+bLnHCf3oJwuFZIRsHT5p236QXww==",
       "type": "package",
@@ -4255,23 +4292,24 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 7.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.3",
       "Microsoft.OpenApi >= 1.6.3",
+      "NLog >= 5.1.2",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BinKej\\.nuget\\packages\\": {}
+    "C:\\Users\\josfry\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
+      "projectUniqueName": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
       "projectName": "zoo_mgmt",
-      "projectPath": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
-      "packagesPath": "C:\\Users\\BinKej\\.nuget\\packages\\",
-      "outputPath": "C:\\Training\\zoo-management\\obj\\",
+      "projectPath": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
+      "packagesPath": "C:\\Users\\josfry\\.nuget\\packages\\",
+      "outputPath": "C:\\Training\\zoo_mgmt\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\BinKej\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\josfry\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -4318,6 +4356,10 @@
           "Microsoft.OpenApi": {
             "target": "Package",
             "version": "[1.6.3, )"
+          },
+          "NLog": {
+            "target": "Package",
+            "version": "[5.1.2, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

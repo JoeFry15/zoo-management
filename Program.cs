@@ -11,8 +11,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var config = new LoggingConfiguration();
+var target = new FileTarget { FileName = @"C:\Training\zoo_mgmt\ZooMgmt.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+config.AddTarget("File Logger", target);
+config.LoggingRules.Add(new LoggingRule("*", NLog.LogLevel.Debug, target));
+LogManager.Configuration = config;
+
 
 // Add services to the container.
 

@@ -1,0 +1,2 @@
+2023-03-15 10:19:40.9146 Info - zoo_mgmt.Repositories.AnimalsRepo: Animal search page generated.
+2023-03-15 10:19:57.1954 Warn - zoo_mgmt.Repositories.AnimalsRepo: User attempted to add an animal with an enclosure that does not exist.

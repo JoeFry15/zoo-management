@@ -218,3 +218,4 @@ C:\Training\zoo-management\obj\Debug\net6.0\refint\zoo_mgmt.dll
 C:\Training\zoo-management\obj\Debug\net6.0\zoo_mgmt.pdb
 C:\Training\zoo-management\obj\Debug\net6.0\zoo_mgmt.genruntimeconfig.cache
 C:\Training\zoo-management\obj\Debug\net6.0\ref\zoo_mgmt.dll
+C:\Training\zoo_mgmt\bin\Debug\net6.0\NLog.dll
