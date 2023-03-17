@@ -100,6 +100,13 @@ static void CreateDbIfNotExists(IHost host)
         context.SaveChanges();
     }
 
+    if (!context.ZooKeepEnclosureDuties.Any())
+    {
+        var zooKeepersDuties = SampleZooKeepEnclosureDuty.GetDuties();
+        context.ZooKeepEnclosureDuties.AddRange(zooKeepersDuties);
+        context.SaveChanges();
+    }
+
 
 }
 

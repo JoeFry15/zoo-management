@@ -68,5 +68,12 @@ namespace zoo_mgmt.Controllers
             }
 
         }
+
+        [HttpGet("enclosure/{id}")]
+        public ActionResult<List<AnimalAndEnclosureResponse>> EnclosureGetById([FromRoute] int id)
+        {
+            var animal = _animals.GetAnimalsInEnclosure(id);
+            return animal;
+        }
     }
 }

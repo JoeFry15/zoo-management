@@ -12,6 +12,7 @@ namespace zoo_mgmt.Repositories
         List<AnimalAndEnclosureResponse> GetByPageInfo(AnimalSearchRequest search);
         List<string> GetListOfSpecies();
         Animal Add(AddAnimalRequest newAnimal);
+        List<AnimalAndEnclosureResponse> GetAnimalsInEnclosure(int enclosureId);
     }
 
     public class AnimalsRepo : IAnimalsRepo
@@ -65,10 +66,10 @@ namespace zoo_mgmt.Repositories
                 .Where(i => i.BirthDate.Year == requiredDate.Year);
             }
 
-            var query = animalData.GroupJoin(enclosureData,
+            IEnumerable<AnimalAndEnclosureResponse> animalList = animalData.GroupJoin(enclosureData,
             animalData => animalData.Enclosure.EnclosureId,
             enclosureData => enclosureData.EnclosureId,
-            (animalData, animalDataGroup) => new
+            (animalData, animalDataGroup) => new AnimalAndEnclosureResponse()
             {
                 Id = animalData.Id,
                 Name = animalData.Name,
@@ -81,25 +82,8 @@ namespace zoo_mgmt.Repositories
                 EnclosureName = animalData.Enclosure.EnclosureName,
             });
 
-            var animalList = new List<AnimalAndEnclosureResponse>();
 
-            foreach (var item in query)
-            {
-                animalList.Add(new AnimalAndEnclosureResponse()
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Species = item.Species,
-                    Classification = item.Classification,
-                    Sex = item.Sex,
-                    BirthDate = item.BirthDate,
-                    AcquiredDate = item.AcquiredDate,
-                    EnclosureId = item.EnclosureId,
-                    EnclosureName = item.EnclosureName,
-                });
-            }
-
-            var animalDataPage = search.OrderBy != null ? animalList
+            List<AnimalAndEnclosureResponse> animalDataPage = search.OrderBy != null ? animalList
                 .OrderBy(o => o.GetType().GetProperty(search.OrderBy).GetValue(o))
                 .Skip(firstResult - 1).Take(search.PageSize)
                 .ToList()
@@ -113,6 +97,39 @@ namespace zoo_mgmt.Repositories
             Logger.Info("Animal search page generated.");
 
             return animalDataPage;
+        }
+
+        public List<AnimalAndEnclosureResponse> GetAnimalsInEnclosure(int enclosureId)
+        {
+           
+
+            var animals = _context.Animals.Where(a => a.EnclosureId == enclosureId).ToList();
+
+            var enclosureName = _context.Enclosures.Where(a => a.EnclosureId == enclosureId).First().EnclosureName;
+
+            var animalList = new List<AnimalAndEnclosureResponse>();
+
+
+            foreach (var item in animals)
+            {
+                animalList.Add(new AnimalAndEnclosureResponse()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Species = item.Species,
+                    Classification = item.Classification,
+                    Sex = item.Sex,
+                    BirthDate = item.BirthDate,
+                    AcquiredDate = item.AcquiredDate,
+                    EnclosureId = item.EnclosureId,
+                    EnclosureName = enclosureName,
+                });
+            }
+
+            Logger.Info("Enclosure page generated.");
+            
+
+            return animalList;
         }
 
         public Animal GetById(int id)

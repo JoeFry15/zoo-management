@@ -53,7 +53,7 @@ namespace zoo_mgmt.Repositories
         public ZooKeeper GetById(int id)
         {
             return _context.ZooKeepers
-                .Single(zooKeeper => zooKeeper.Id == id);
+                .Single(zooKeeper => zooKeeper.ZooKeeperId == id);
         }
 
         public ZooKeeper Add(AddZooKeeperRequest newZooKeeper)

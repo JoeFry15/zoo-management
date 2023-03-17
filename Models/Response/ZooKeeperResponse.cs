@@ -10,7 +10,7 @@ namespace zoo_mgmt.Models.Response
         {
             _zooKeeper = zooKeeper;
         }
-        public int Id => _zooKeeper.Id;
+        public int Id => _zooKeeper.ZooKeeperId;
         public string Name => _zooKeeper.Name;
     }
 }

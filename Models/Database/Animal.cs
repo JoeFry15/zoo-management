@@ -15,5 +15,10 @@ public class Animal
     public DateTime BirthDate { get; set; }
 
     public DateTime AcquiredDate { get; set; }
+
+    public int EnclosureId {get; set;}
+
+    [ForeignKey("EnclosureId")]
+
     public Enclosure Enclosure { get; set; }
 }

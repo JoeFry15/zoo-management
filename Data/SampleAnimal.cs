@@ -70,46 +70,46 @@ namespace zoo_mgmt.Data
             return Enumerable.Range(0, NumberOfAnimals).Select(CreateRandomAnimal);
         }
 
-        private static readonly List<Enclosure> EnclosureData = new List<Enclosure>
-        {
+        // private static readonly List<Enclosure> EnclosureData = new List<Enclosure>
+        // {
 
 
-            new Enclosure()
-            {
-                EnclosureId = 1,
-                EnclosureName = "Lion Enclosure",
-                Size = 10,
-                Animals = new List<Animal>(),
-            },
-            new Enclosure()
-            {
-                EnclosureId = 2,
-                EnclosureName = "Aviary",
-                Size = 50,
-                Animals = new List<Animal>(),
-            },
-            new Enclosure()
-            {
-                EnclosureId = 3,
-                EnclosureName = "Reptile House",
-                Size = 40,
-                Animals = new List<Animal>(),
-            },
-            new Enclosure()
-            {
-                EnclosureId = 4,
-                EnclosureName = "Giraffe Enclosure",
-                Size = 6,
-                Animals = new List<Animal>(),
-            },
-            new Enclosure()
-            {
-                EnclosureId = 5,
-                EnclosureName = "Hippo Enclosure",
-                Size = 10,
-                Animals = new List<Animal>(),
-            },
-        };
+        //     new Enclosure()
+        //     {
+        //         EnclosureId = 1,
+        //         EnclosureName = "Lion Enclosure",
+        //         Size = 10,
+        //         Animals = new List<Animal>(),
+        //     },
+        //     new Enclosure()
+        //     {
+        //         EnclosureId = 2,
+        //         EnclosureName = "Aviary",
+        //         Size = 50,
+        //         Animals = new List<Animal>(),
+        //     },
+        //     new Enclosure()
+        //     {
+        //         EnclosureId = 3,
+        //         EnclosureName = "Reptile House",
+        //         Size = 40,
+        //         Animals = new List<Animal>(),
+        //     },
+        //     new Enclosure()
+        //     {
+        //         EnclosureId = 4,
+        //         EnclosureName = "Giraffe Enclosure",
+        //         Size = 6,
+        //         Animals = new List<Animal>(),
+        //     },
+        //     new Enclosure()
+        //     {
+        //         EnclosureId = 5,
+        //         EnclosureName = "Hippo Enclosure",
+        //         Size = 10,
+        //         Animals = new List<Animal>(),
+        //     },
+        // };
 
         private static Animal CreateRandomAnimal(int index)
         {
@@ -117,6 +117,8 @@ namespace zoo_mgmt.Data
             Random rnd = new Random();
 
             int rndIndex = rnd.Next(0, 5);
+
+            List<Enclosure> EnclosureData = SampleEnclosures.GetEnclosures();
 
             return new Animal
             {

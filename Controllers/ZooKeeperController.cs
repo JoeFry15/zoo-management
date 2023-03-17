@@ -43,7 +43,7 @@ namespace zoo_mgmt.Controllers
             try
             {
                 var zooKeeper = _zooKeeper.Add(newZooKeeper);
-                var url = Url.Action("GetById", new { id = zooKeeper.Id });
+                var url = Url.Action("GetById", new { id = zooKeeper.ZooKeeperId });
                 var responseViewModel = new ZooKeeperResponse(zooKeeper);
                 return Created(url, responseViewModel);
             }

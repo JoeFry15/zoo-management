@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj": {}
+    "C:\\Training\\zoo-management\\zoo_mgmt.csproj": {}
   },
   "projects": {
-    "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj": {
+    "C:\\Training\\zoo-management\\zoo_mgmt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
+        "projectUniqueName": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
         "projectName": "zoo_mgmt",
-        "projectPath": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
-        "packagesPath": "C:\\Users\\josfry\\.nuget\\packages\\",
-        "outputPath": "C:\\Training\\zoo_mgmt\\obj\\",
+        "projectPath": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
+        "packagesPath": "C:\\Users\\BinKej\\.nuget\\packages\\",
+        "outputPath": "C:\\Training\\zoo-management\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\josfry\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\BinKej\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
