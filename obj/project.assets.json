@@ -4297,19 +4297,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BinKej\\.nuget\\packages\\": {}
+    "C:\\Users\\josfry\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
+      "projectUniqueName": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
       "projectName": "zoo_mgmt",
-      "projectPath": "C:\\Training\\zoo-management\\zoo_mgmt.csproj",
-      "packagesPath": "C:\\Users\\BinKej\\.nuget\\packages\\",
-      "outputPath": "C:\\Training\\zoo-management\\obj\\",
+      "projectPath": "C:\\Training\\zoo_mgmt\\zoo_mgmt.csproj",
+      "packagesPath": "C:\\Users\\josfry\\.nuget\\packages\\",
+      "outputPath": "C:\\Training\\zoo_mgmt\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\BinKej\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\josfry\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -4385,7 +4385,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

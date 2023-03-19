@@ -2,8 +2,14 @@ using zoo_mgmt.Models.Database;
 
 namespace zoo_mgmt.Data
 {
-    public static class SampleAnimals
+    public class SampleAnimals
     {
+        private readonly ZooManagementDbContext _context;
+
+        public SampleAnimals(ZooManagementDbContext context)
+        {
+            _context = context;
+        }
         public const int NumberOfAnimals = 55;
 
         private static readonly IList<IList<string>> Data = new List<IList<string>>
@@ -65,60 +71,19 @@ namespace zoo_mgmt.Data
             new List<string> {"Artemis", "Red-tailed Hawk", "Bird", "Female", "8 Jun 2020", "23 Aug 2023"},
         };
 
-        public static IEnumerable<Animal> GetAnimals()
+        public IEnumerable<Animal> GetAnimals()
         {
             return Enumerable.Range(0, NumberOfAnimals).Select(CreateRandomAnimal);
         }
 
-        // private static readonly List<Enclosure> EnclosureData = new List<Enclosure>
-        // {
-
-
-        //     new Enclosure()
-        //     {
-        //         EnclosureId = 1,
-        //         EnclosureName = "Lion Enclosure",
-        //         Size = 10,
-        //         Animals = new List<Animal>(),
-        //     },
-        //     new Enclosure()
-        //     {
-        //         EnclosureId = 2,
-        //         EnclosureName = "Aviary",
-        //         Size = 50,
-        //         Animals = new List<Animal>(),
-        //     },
-        //     new Enclosure()
-        //     {
-        //         EnclosureId = 3,
-        //         EnclosureName = "Reptile House",
-        //         Size = 40,
-        //         Animals = new List<Animal>(),
-        //     },
-        //     new Enclosure()
-        //     {
-        //         EnclosureId = 4,
-        //         EnclosureName = "Giraffe Enclosure",
-        //         Size = 6,
-        //         Animals = new List<Animal>(),
-        //     },
-        //     new Enclosure()
-        //     {
-        //         EnclosureId = 5,
-        //         EnclosureName = "Hippo Enclosure",
-        //         Size = 10,
-        //         Animals = new List<Animal>(),
-        //     },
-        // };
-
-        private static Animal CreateRandomAnimal(int index)
+        private Animal CreateRandomAnimal(int index)
         {
 
             Random rnd = new Random();
 
-            int rndIndex = rnd.Next(0, 5);
+            int rndIndex = rnd.Next(1, 6);
 
-            List<Enclosure> EnclosureData = SampleEnclosures.GetEnclosures();
+            var ourEnclosures = _context.Enclosures;
 
             return new Animal
             {
@@ -128,8 +93,9 @@ namespace zoo_mgmt.Data
                 Sex = Data[index][3],
                 BirthDate = DateTime.Parse(Data[index][4]),
                 AcquiredDate = DateTime.Parse(Data[index][5]),
-                Enclosure = EnclosureData[rndIndex],
+                Enclosure = ourEnclosures.Where(b => b.EnclosureId == rndIndex).FirstOrDefault(),
             };
         }
+
     }
 }

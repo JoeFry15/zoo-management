@@ -2,32 +2,37 @@ using zoo_mgmt.Models.Database;
 
 namespace zoo_mgmt.Data
 {
-    public static class SampleZooKeepEnclosureDuty
+    public class SampleZooKeepEnclosureDuty
     {
+        private readonly ZooManagementDbContext _context;
+
+        public SampleZooKeepEnclosureDuty(ZooManagementDbContext context)
+        {
+            _context = context;
+        }
         public const int NumberOfDuties = 20;
 
-        public static IEnumerable<ZooKeepEnclosureDuty> GetDuties()
+        public IEnumerable<ZooKeepEnclosureDuty> GetDuties()
         {
             return Enumerable.Range(0, NumberOfDuties).Select(CreateRandomDuties);
         }
 
-        private static ZooKeepEnclosureDuty CreateRandomDuties(int index)
+        private ZooKeepEnclosureDuty CreateRandomDuties(int index)
         {
-            List<ZooKeeper> Data = SampleZooKeeper.GetZooKeepers().ToList();
-            List<Enclosure> EnclosureData = SampleEnclosures.GetEnclosures();
+            var ourEnclosures = _context.Enclosures;
+            var ourZooKeepers = _context.ZooKeepers;
 
             Random rnd = new Random();
 
-            int zooKeepRandomIndex = rnd.Next(0,10);
+            int zooKeepRandomIndex = rnd.Next(1, 11);
 
-            int rndIndex = rnd.Next(0, 5);
+            int enclosureRandomIndex = rnd.Next(1, 6);
 
             return new ZooKeepEnclosureDuty
             {
-                
-                ZooKeeper = Data[zooKeepRandomIndex],
-                Enclosure = EnclosureData[rndIndex]
 
+                ZooKeeper = ourZooKeepers.Where(b => b.ZooKeeperId == zooKeepRandomIndex).FirstOrDefault(),
+                Enclosure = ourEnclosures.Where(b => b.EnclosureId == enclosureRandomIndex).FirstOrDefault(),
             };
         }
     }

@@ -79,17 +79,18 @@ static void CreateDbIfNotExists(IHost host)
     var context = services.GetRequiredService<ZooManagementDbContext>();
     context.Database.EnsureCreated();
 
-    // if (!context.Enclosures.Any())
-    // {
-    //     var enclosures = SampleEnclosure.GetEnclosure();
-    //     context.Enclosures.AddRange(enclosures);
-    //     context.SaveChanges();
-    // }
+    if (!context.Enclosures.Any())
+    {
+        var enclosures = SampleEnclosures.GetEnclosures();
+        context.Enclosures.AddRange(enclosures);
+        context.SaveChanges();
+    }
 
     if (!context.Animals.Any())
     {
-        var animals = SampleAnimals.GetAnimals();
-        context.Animals.AddRange(animals);
+        var animals = new SampleAnimals(context);
+        context.Animals.AddRange(animals.GetAnimals());
+
         context.SaveChanges();
     }
 
@@ -102,8 +103,8 @@ static void CreateDbIfNotExists(IHost host)
 
     if (!context.ZooKeepEnclosureDuties.Any())
     {
-        var zooKeepersDuties = SampleZooKeepEnclosureDuty.GetDuties();
-        context.ZooKeepEnclosureDuties.AddRange(zooKeepersDuties);
+        var zooKeepersDuties = new SampleZooKeepEnclosureDuty(context);
+        context.ZooKeepEnclosureDuties.AddRange(zooKeepersDuties.GetDuties());
         context.SaveChanges();
     }
 
